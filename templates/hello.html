@@ -1,0 +1,15 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        {% if user_name %}
+        <h1>Hello, {{ user_name }}!</h1>
+        {% else %}
+        <h1>Plz enter u name</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

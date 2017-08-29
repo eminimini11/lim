@@ -1,29 +1,40 @@
-from flask import Flask, render_template
+from flask.ext.wtf import Form
+from wtforms import StringField, SubmitField
+from wtforms.validators import Required
+from flask.ext.bootstrap import Bootstrap
+from flask import Flask, request, render_template
 from flask.ext.script import Manager
-from flask import Flask
+
+
+class NameForm(Form):
+    name = StringField('What is you name?', validators=[Required()])
+    subnit = SubmitField('Submit')
+
+
 app = Flask(__name__)
 manager = Manager(app)
+bootstrap = Bootstrap(app)
 
 
 @app.route('/')
 def index():
-    return '<h1>Hello Everyone!</h1>'
+    return render_template('index.html')
 
 
-@app.route('/user/<name>')
-def user(name):
-    return '<h1>Hello, %s!</h1>' % name
+@app.route('/user')
+def user():
+    return render_template('user.html')
 
 
-@app.route('/index/')
-def index():
-    return render_template('/index.html')
+@app.route('/user/hello')
+def hello():
+    user_name = request.args.get('user_name', '')
+    user_name = user_name + ", Welcom"
+    return render_template('hello.html', user_name=user_name)
 
 
-@app.route('/user/<name>')
-def user(name):
-    return render_template('/user.html', name=name)
-
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'hard to guess string'
 
 
 if __name__ == '__main__':

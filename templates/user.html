@@ -1,0 +1,12 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="/user/hello" method="get">
+        <input name="user_name" id="user_name" value="" placeholder="plz enter the u name"/>
+        <button type="submit">submit</button>
+    </form>
+</div>
+{% endblock %}
