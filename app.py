@@ -1,8 +1,8 @@
+from flask import Flask, render_template, request
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 from flask.ext.bootstrap import Bootstrap
-from flask import Flask, request, render_template
 from flask.ext.script import Manager
 
 
@@ -14,6 +14,13 @@ class NameForm(Form):
 app = Flask(__name__)
 manager = Manager(app)
 bootstrap = Bootstrap(app)
+
+
+@app.route('/result', methods=['GET', 'POST'])
+def result():
+    if request.method == 'POST':
+        result = request.form
+    return render_template('index.html', result=result)
 
 
 @app.route('/')
